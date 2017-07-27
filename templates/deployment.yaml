@@ -19,6 +19,11 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: APPLICATION_URL
+              value: {{ .Values.ingress.host }}
+            - name: API_HOST
+              value: {{ .Values.ingress.host }}/todos
           ports:
             - containerPort: {{ .Values.service.internalPort }}
           livenessProbe:
